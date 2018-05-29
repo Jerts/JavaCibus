@@ -47,7 +47,7 @@ public class Log extends HttpServlet {
             //SHA1 a la contra
             pass = this.hashContra(pass);
 
-            String query = "SELECT `ID_CLIENTE` FROM `cliente` WHERE `ID_CLIENTE`=\""+usuario+"\" and `CONTRASENA`=\""+pass+"\"";
+            String query = "SELECT * FROM `cliente` WHERE `ID_CLIENTE`=\""+usuario+"\" and `CONTRASENA`=\""+pass+"\"";
             System.out.println(query);
             try {
 
@@ -60,7 +60,9 @@ public class Log extends HttpServlet {
 
                     //Crear sesión con el nombre de usuario
                     HttpSession s1 = request.getSession(true);
-                    s1.setAttribute("usuario", usuario);
+                    s1.setAttribute("usuario", res.getString("ID_CLIENTE"));
+                    s1.setAttribute("email", res.getString("EMAIL"));
+                    s1.setAttribute("img", res.getString("RUTA_IMG"));
                     //Redirigir al menu principal
                     request.getRequestDispatcher("mainMenu.jsp").forward(request, response);
 
@@ -74,12 +76,10 @@ public class Log extends HttpServlet {
                     Cookie galleta1 = new Cookie("login","false");
                     galleta1.setMaxAge(5);
                     response.addCookie(galleta1);
-
+                    c.endConeccion();
+                    response.sendRedirect("index.html");
                 }
-                //Terminar conexión
-                c.endConeccion();
-                //Redirigir al inicio
-                response.sendRedirect("index.html");
+                
 
             } catch (SQLException ex) {
                 Logger.getLogger(Log.class.getName()).log(Level.SEVERE, null, ex);

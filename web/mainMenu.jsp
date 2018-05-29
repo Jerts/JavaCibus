@@ -6,6 +6,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    HttpSession s1 = request.getSession();
+    String usuario = (String) s1.getAttribute("usuario");
+    String email = (String) s1.getAttribute("email");
+    String img = (String) s1.getAttribute("img");
+%>
 <html>
     <head>
         <title>Cibus</title>
@@ -52,9 +58,11 @@
                     <div class="background">
                         <img src="img/backgroundSideNav.jpg" class="responsive-img">
                     </div>
-                    <a href="#user"><img class="circle" src="img/usuarios/jerts25.jpg"></a>
-                    <a href="#name"><span class="white-text name">John Doe</span></a>
-                    <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+                    <!--<a href="#user"><img class="circle" src="img/usuarios/jerts25.jpg"></a>-->
+                    <a href="#user"><img class="circle" src="<%=img%>"></a>
+                    <a href="#name"><span class="white-text name"><%=usuario%></span></a>
+                    <a href="#email"><span class="white-text email"><%=email%></span></a>
+                    
                 </div>
             </li>
             <li><a class="subheader">Cuenta</a></li>
