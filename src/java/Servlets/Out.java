@@ -38,7 +38,6 @@ public class Out extends HttpServlet {
                 String nombre = (String) s1.getAttribute("usuario");
                 System.out.println(nombre+": sesion terminada");
                 s1.invalidate();
-
                 //Cookie de registro exitoso
                 Cookie galleta2 = new Cookie("registro","");
                 galleta2.setMaxAge(5);

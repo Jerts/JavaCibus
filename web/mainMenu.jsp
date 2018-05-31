@@ -4,13 +4,23 @@
     Author     : Luis
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" import="coneccion.Conect , java.sql.*"%>
 <!DOCTYPE html>
 <%
+    
     HttpSession s1 = request.getSession();
     String usuario = (String) s1.getAttribute("usuario");
     String email = (String) s1.getAttribute("email");
     String img = (String) s1.getAttribute("img");
+    
+    
+    
+    Conect c1 = new Conect("cibusv2","root","");
+    Connection con = c1.getConneccion();
+    String query = "SELECT * FROM `producto` WHERE `ID_TIPO`=\"0001\"";
+    Statement stat = con.createStatement();
+    ResultSet set = stat.executeQuery(query);
+    
 %>
 <html>
     <head>
@@ -26,6 +36,7 @@
          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
          <!--Estilos propios-->
          <link rel="stylesheet" href="styles.css" type="text/css">
+         <link rel="stylesheet" href="materialize/css/styleTienda.css" media="screen" title="no title" charset="utf-8">
          
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -76,7 +87,31 @@
             <li>
               <div class="collapsible-header"><i class="material-icons">add</i>Preparados</div>
               <div class="collapsible-body">
-                  
+                  <div class="shopping-cart">
+                    <!-- Product #1 -->
+                    <% 
+                        while(set.next()){
+                            out.println("<div class=\"item\">"
+                                        + "<div class=\"image\">"
+                                            + "<img src=\""+set.getString("RUTA_IMG")+"\" alt=\"\" />"
+                                        + "</div>"
+                                        + "<div class=\"description\">"
+                                            + "<span>"+set.getString("NOMBRE")+"</span>"
+                                        + "</div>"
+                                        + "<div class=\"quantity\">"
+                                            + "<button class=\"plus-btn\" type=\"button\" name=\"button\">"
+                                                + "<img src=\"img/plus.svg\" alt=\"\" />"
+                                            + "</button>"
+                                            + "<input type=\"text\" name=\"name\" value=\"1\">"
+                                            + "<button class=\"minus-btn\" type=\"button\" name=\"button\">"
+                                                + "<img src=\"img/minus.svg\" alt=\"\" />"
+                                            + "</button>"
+                                        + "</div>"
+                                        + "<div class=\"total-price\">$"+set.getString("PRECIO")+"</div>"
+                                       + "</div>");
+                        }
+                    %>
+                    </div>
               </div>
             </li>
             <li>
@@ -105,6 +140,42 @@
               $('.collapsible').collapsible();
             });
         </script>
+        <script type="text/javascript">
+      $('.minus-btn').on('click', function(e) {
+    		e.preventDefault();
+    		var $this = $(this);
+    		var $input = $this.closest('div').find('input');
+    		var value = parseInt($input.val());
+
+    		if (value > 1) {
+    			value = value - 1;
+    		} else {
+    			value = 0;
+    		}
+
+        $input.val(value);
+
+    	});
+
+    	$('.plus-btn').on('click', function(e) {
+    		e.preventDefault();
+    		var $this = $(this);
+    		var $input = $this.closest('div').find('input');
+    		var value = parseInt($input.val());
+
+    		if (value < 100) {
+      		value = value + 1;
+    		} else {
+    			value =100;
+    		}
+
+    		$input.val(value);
+    	});
+
+      $('.like-btn').on('click', function() {
+        $(this).toggleClass('is-active');
+      });
+    </script>
           
     </body>
 </html>
