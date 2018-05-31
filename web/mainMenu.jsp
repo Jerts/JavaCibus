@@ -17,9 +17,27 @@
     
     Conect c1 = new Conect("cibusv2","root","");
     Connection con = c1.getConneccion();
-    String query = "SELECT * FROM `producto` WHERE `ID_TIPO`=\"0001\"";
-    Statement stat = con.createStatement();
-    ResultSet set = stat.executeQuery(query);
+    String queryPreparados = "SELECT * FROM `producto` WHERE `ID_TIPO`=\"0001\"";
+    String queryBebidas = "SELECT * FROM `producto` WHERE `ID_TIPO`=\"0002\"";
+    String queryFritura = "SELECT * FROM `producto` WHERE `ID_TIPO`=\"0003\"";
+    String queryDulces = "SELECT * FROM `producto` WHERE `ID_TIPO`=\"0004\"";
+    String queryGalletas_Pan = "SELECT * FROM `producto` WHERE `ID_TIPO`=\"0005\"";
+    
+    
+    Statement statPreparados = con.createStatement();
+    ResultSet setPreparados = statPreparados.executeQuery(queryPreparados);
+    
+    Statement statBebidas = con.createStatement();
+    ResultSet setBebidas = statBebidas.executeQuery(queryBebidas);
+    
+    Statement statDulces = con.createStatement();
+    ResultSet setDulces = statDulces.executeQuery(queryDulces);
+    
+    Statement statFritura = con.createStatement();
+    ResultSet setFritura= statFritura.executeQuery(queryFritura);
+    
+    Statement statGalletas_pan = con.createStatement();
+    ResultSet setGalletas = statGalletas_pan.executeQuery(queryGalletas_Pan);
     
 %>
 <html>
@@ -90,13 +108,13 @@
                   <div class="shopping-cart">
                     <!-- Product #1 -->
                     <% 
-                        while(set.next()){
+                        while(setPreparados.next()){
                             out.println("<div class=\"item\">"
                                         + "<div class=\"image\">"
-                                            + "<img src=\""+set.getString("RUTA_IMG")+"\" alt=\"\" />"
+                                            + "<img src=\""+setPreparados.getString("RUTA_IMG")+"\" alt=\"\" />"
                                         + "</div>"
                                         + "<div class=\"description\">"
-                                            + "<span>"+set.getString("NOMBRE")+"</span>"
+                                            + "<span>"+setPreparados.getString("NOMBRE")+"</span>"
                                         + "</div>"
                                         + "<div class=\"quantity\">"
                                             + "<button class=\"plus-btn\" type=\"button\" name=\"button\">"
@@ -107,7 +125,7 @@
                                                 + "<img src=\"img/minus.svg\" alt=\"\" />"
                                             + "</button>"
                                         + "</div>"
-                                        + "<div class=\"total-price\">$"+set.getString("PRECIO")+"</div>"
+                                        + "<div class=\"total-price\">$"+setPreparados.getString("PRECIO")+"</div>"
                                        + "</div>");
                         }
                     %>
@@ -116,13 +134,126 @@
             </li>
             <li>
               <div class="collapsible-header"><i class="material-icons">add</i>Bebidas</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+              <div class="collapsible-body">
+                  <div class="shopping-cart">
+                    <!-- Product #1 -->
+                    <% 
+                        while(setBebidas.next()){
+                            out.println("<div class=\"item\">"
+                                        + "<div class=\"image\">"
+                                            + "<img src=\""+setBebidas.getString("RUTA_IMG")+"\" alt=\"\" />"
+                                        + "</div>"
+                                        + "<div class=\"description\">"
+                                            + "<span>"+setBebidas.getString("NOMBRE")+"</span>"
+                                        + "</div>"
+                                        + "<div class=\"quantity\">"
+                                            + "<button class=\"plus-btn\" type=\"button\" name=\"button\">"
+                                                + "<img src=\"img/plus.svg\" alt=\"\" />"
+                                            + "</button>"
+                                            + "<input type=\"text\" name=\"name\" value=\"1\">"
+                                            + "<button class=\"minus-btn\" type=\"button\" name=\"button\">"
+                                                + "<img src=\"img/minus.svg\" alt=\"\" />"
+                                            + "</button>"
+                                        + "</div>"
+                                        + "<div class=\"total-price\">$"+setBebidas.getString("PRECIO")+"</div>"
+                                       + "</div>");
+                        }
+                    %>
+                    </div>
+              </div>
             </li>
             <li>
               <div class="collapsible-header"><i class="material-icons">add</i>Dulces</div>
-              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+              <div class="collapsible-body">
+                  <div class="shopping-cart">
+                    <!-- Product #1 -->
+                    <% 
+                        while(setDulces.next()){
+                            out.println("<div class=\"item\">"
+                                        + "<div class=\"image\">"
+                                            + "<img src=\""+setDulces.getString("RUTA_IMG")+"\" alt=\"\" />"
+                                        + "</div>"
+                                        + "<div class=\"description\">"
+                                            + "<span>"+setDulces.getString("NOMBRE")+"</span>"
+                                        + "</div>"
+                                        + "<div class=\"quantity\">"
+                                            + "<button class=\"plus-btn\" type=\"button\" name=\"button\">"
+                                                + "<img src=\"img/plus.svg\" alt=\"\" />"
+                                            + "</button>"
+                                            + "<input type=\"text\" name=\"name\" value=\"1\">"
+                                            + "<button class=\"minus-btn\" type=\"button\" name=\"button\">"
+                                                + "<img src=\"img/minus.svg\" alt=\"\" />"
+                                            + "</button>"
+                                        + "</div>"
+                                        + "<div class=\"total-price\">$"+setDulces.getString("PRECIO")+"</div>"
+                                       + "</div>");
+                        }
+                    %>
+                    </div>
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">add</i>Frituras</div>
+              <div class="collapsible-body">
+                  <div class="shopping-cart">
+                    <!-- Product #1 -->
+                    <% 
+                        while(setFritura.next()){
+                            out.println("<div class=\"item\">"
+                                        + "<div class=\"image\">"
+                                            + "<img src=\""+setFritura.getString("RUTA_IMG")+"\" alt=\"\" />"
+                                        + "</div>"
+                                        + "<div class=\"description\">"
+                                            + "<span>"+setFritura.getString("NOMBRE")+"</span>"
+                                        + "</div>"
+                                        + "<div class=\"quantity\">"
+                                            + "<button class=\"plus-btn\" type=\"button\" name=\"button\">"
+                                                + "<img src=\"img/plus.svg\" alt=\"\" />"
+                                            + "</button>"
+                                            + "<input type=\"text\" name=\"name\" value=\"1\">"
+                                            + "<button class=\"minus-btn\" type=\"button\" name=\"button\">"
+                                                + "<img src=\"img/minus.svg\" alt=\"\" />"
+                                            + "</button>"
+                                        + "</div>"
+                                        + "<div class=\"total-price\">$"+setFritura.getString("PRECIO")+"</div>"
+                                       + "</div>");
+                        }
+                    %>
+                    </div>
+              </div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">add</i>Galletas y Pan Dulce</div>
+              <div class="collapsible-body">
+                  <div class="shopping-cart">
+                    <!-- Product #1 -->
+                    <% 
+                        while(setGalletas.next()){
+                            out.println("<div class=\"item\">"
+                                        + "<div class=\"image\">"
+                                            + "<img src=\""+setGalletas.getString("RUTA_IMG")+"\" alt=\"\" />"
+                                        + "</div>"
+                                        + "<div class=\"description\">"
+                                            + "<span>"+setGalletas.getString("NOMBRE")+"</span>"
+                                        + "</div>"
+                                        + "<div class=\"quantity\">"
+                                            + "<button class=\"plus-btn\" type=\"button\" name=\"button\">"
+                                                + "<img src=\"img/plus.svg\" alt=\"\" />"
+                                            + "</button>"
+                                            + "<input type=\"text\" name=\"name\" value=\"1\">"
+                                            + "<button class=\"minus-btn\" type=\"button\" name=\"button\">"
+                                                + "<img src=\"img/minus.svg\" alt=\"\" />"
+                                            + "</button>"
+                                        + "</div>"
+                                        + "<div class=\"total-price\">$"+setGalletas.getString("PRECIO")+"</div>"
+                                       + "</div>");
+                        }
+                    %>
+                    </div>
+              </div>
             </li>
         </ul>
+        
         
         
         

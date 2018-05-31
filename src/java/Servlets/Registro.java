@@ -7,15 +7,24 @@ package Servlets;
 
 import coneccion.Conect;
 import java.io.IOException;
+import java.io.*;
 import java.sql.*;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.apache.tomcat.util.http.fileupload.RequestContext;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 /**
  *
  * @author Luis
@@ -40,36 +49,43 @@ public class Registro extends HttpServlet {
         //Obtencion de los parametros del form de Registro
         String usuario=request.getParameter("usuario");
         String pass=request.getParameter("password");
+        String email=request.getParameter("email");
         String nombre=request.getParameter("nombre");
         String p_apellido=request.getParameter("p_apellido");
         String s_apellido=request.getParameter("s_apellido");
+        String ruta_img = "";
         String sexo=request.getParameter("sexo");
-        
+
         pass = hashContra(pass);//Contraseña en Sha1
         Timestamp tmp = new Timestamp(System.currentTimeMillis());
         //Set de cookies para la toast en index.html
         Cookie galleta1 = new Cookie("registro","true");
         galleta1.setMaxAge(60);
         response.addCookie(galleta1);
+        
+        
         //Query para la inserción de un registro a la BD
-        String query = "INSERT INTO `cliente` (ID_CLIENTE,NOMBRE,P_APELLIDO,SEXO,CONTRASENA,TIMESTAMP_REGISTRO) "
-                                  +"VALUES('"+usuario+"','"+nombre+"','"+p_apellido+"','"+sexo+"','"+pass+"','"+tmp+"')";
-        System.out.println(query);
+        String query = "INSERT INTO `cliente` (ID_CLIENTE,NOMBRE,EMAIL,RUTA_IMG,P_APELLIDO,S_APELLIDO,SEXO,CONTRASENA,TIMESTAMP_REGISTRO) "
+                                  +"VALUES('"+usuario+"','"+nombre+"','"+email+"','"+ruta_img+"','"+p_apellido+"','"+s_apellido+"','"+sexo+"','"+pass+"','"+tmp+"')";
+        
         try {
+            System.out.println(query);
             Statement stm = con.createStatement();
-            stm.executeUpdate(query);
-        } catch (SQLException ex) {
+            stm.executeUpdate(query);        
+        } catch (SQLException ex ) {
             Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         c.endConeccion();
         response.sendRedirect("index.html");
     }
+    
     private String hashContra(String contra){
         
         contra = DigestUtils.sha1Hex(contra);
         return contra;
     }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
