@@ -102,3 +102,28 @@ function editHTMLJson(objJson){
     }
     
 }
+
+function agregarCarrito(id_elemento){
+    $.ajax({
+        // En data puedes utilizar un objeto JSON, un array o un query string
+        data: {"elemento" : id_elemento},
+        //Cambiar a type: POST si necesario
+        type: "GET",
+        // Formato de datos que se espera en la respuesta
+        dataType: "text",
+        // URL a la que se enviará la solicitud Ajax
+        url: "Carrito"
+    })
+     .done(function( data, textStatus, jqXHR ) {
+         if ( console && console.log ) {
+            console.log( "La solicitud se ha completado correctamente." );
+            var obj = JSON.parse(data);
+            console.log(obj.addSucces);
+         }
+     })
+     .fail(function( jqXHR, textStatus, errorThrown ) {
+         if ( console && console.log ) {
+             console.log( "La solicitud a fallado: " +  textStatus);
+         }
+    });
+}

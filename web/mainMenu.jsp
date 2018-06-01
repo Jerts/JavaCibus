@@ -125,7 +125,9 @@
                                                 + "<img src=\"img/minus.svg\" alt=\"\" />"
                                             + "</button>"
                                         + "</div>"
-                                        + "<div class=\"total-price\">$"+setPreparados.getString("PRECIO")+"</div>"
+                                        + "<div class=\"total-price\">$"+setPreparados.getString("PRECIO")+""
+                                            + "<a class=\"waves-effect waves-teal btn-flat\" onclick=\"agregarCarrito('"+setPreparados.getString("ID_PRODUCTO")+"')\"><i class=\"material-icons\">add_shopping_cart</i></a>"
+                                        + "</div>"
                                        + "</div>");
                         }
                     %>

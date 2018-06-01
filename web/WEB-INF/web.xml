@@ -24,6 +24,10 @@
         <servlet-name>Out</servlet-name>
         <servlet-class>Servlets.Out</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Carrito</servlet-name>
+        <servlet-class>Servlets.Carrito</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Registro</servlet-name>
         <url-pattern>/Registro</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>Out</servlet-name>
         <url-pattern>/Out</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Carrito</servlet-name>
+        <url-pattern>/Carrito</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
