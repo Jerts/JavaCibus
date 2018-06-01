@@ -8,7 +8,9 @@ package Servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,28 +35,44 @@ public class Carrito extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        //Obtener los parametros de elemento y su cantidad
         String elemento = request.getParameter("elemento");
+        String auxCantidad = request.getParameter("cantidad");
+        int cantidad = Integer.parseInt(auxCantidad);
+        
         HttpSession s1 = request.getSession();
         PrintWriter out = response.getWriter();
         //Si no existe el atributo de carrito lo crea
-        if(s1.getAttribute("usuario")!= "" && s1.getAttribute("carrito")==null){
+        if(s1.getAttribute("usuario")!= "" && s1.getAttribute("carrito")==null && s1.getAttribute("carritoMapa")==null){
             //Se crea la lista que guardará los identificadores de los elementos agregados
             List<String> elemCarrito = new ArrayList<>();
+            HashMap<String,Integer> mapaCarrito = new HashMap<>(); 
             //Se añade el primer elemento
             elemCarrito.add(elemento);
+            mapaCarrito.put(elemento, cantidad);
             //Se crea el atributo carrito de tipo List<String>
             s1.setAttribute("carrito", elemCarrito);
+            s1.setAttribute("carritoMapa", mapaCarrito);
+            //Imprime los contenidos
             System.out.println(s1.getAttribute("carrito"));
+            System.out.println(s1.getAttribute("carritoMapa"));
+            //Envía la resupuesta en formato JSON
             out.println("{\"addSucces\": \"true\"}");
             out.flush();
         }else{
             //Se crea la lista Auxiliar que guardará el objeto regresado de la sesion
             List<String> elemCarrito = (List<String>) s1.getAttribute("carrito");
+            HashMap<String,Integer> mapaCarrito = (HashMap<String,Integer>) s1.getAttribute("carritoMapa");
             //Se añade el elemento
             elemCarrito.add(elemento);
+            mapaCarrito.put(elemento, cantidad);
             //Se vuelve a setear el atributo en la sesión
             s1.setAttribute("carrito", elemCarrito);
+            s1.setAttribute("carritoMapa", mapaCarrito);
+            
             System.out.println(s1.getAttribute("carrito"));
+            System.out.println(s1.getAttribute("carritoMapa"));
+            
             out.println("{\"addSucces\": \"true\"}");
             out.flush();
         }

@@ -104,9 +104,12 @@ function editHTMLJson(objJson){
 }
 
 function agregarCarrito(id_elemento){
+    var id = "p_"+id_elemento;
+    var cantidad = document.getElementById(id).value;
+    var textToast ="<span>Producto agregado al carrito</span>"
     $.ajax({
         // En data puedes utilizar un objeto JSON, un array o un query string
-        data: {"elemento" : id_elemento},
+        data: {"elemento" : id_elemento,"cantidad":cantidad},
         //Cambiar a type: POST si necesario
         type: "GET",
         // Formato de datos que se espera en la respuesta
@@ -117,6 +120,7 @@ function agregarCarrito(id_elemento){
      .done(function( data, textStatus, jqXHR ) {
          if ( console && console.log ) {
             console.log( "La solicitud se ha completado correctamente." );
+            M.toast({html: textToast,displayLength : 1000,inDuration: 1000,outDuration:2000, classes: 'orange darken-2' });
             var obj = JSON.parse(data);
             console.log(obj.addSucces);
          }

@@ -120,7 +120,7 @@
                                             + "<button class=\"plus-btn\" type=\"button\" name=\"button\">"
                                                 + "<img src=\"img/plus.svg\" alt=\"\" />"
                                             + "</button>"
-                                            + "<input type=\"text\" name=\"name\" value=\"1\">"
+                                            + "<input type=\"text\" id=\"p_"+setPreparados.getString("ID_PRODUCTO")+"\" name=\"name\" value=\"1\">"
                                             + "<button class=\"minus-btn\" type=\"button\" name=\"button\">"
                                                 + "<img src=\"img/minus.svg\" alt=\"\" />"
                                             + "</button>"
@@ -152,12 +152,14 @@
                                             + "<button class=\"plus-btn\" type=\"button\" name=\"button\">"
                                                 + "<img src=\"img/plus.svg\" alt=\"\" />"
                                             + "</button>"
-                                            + "<input type=\"text\" name=\"name\" value=\"1\">"
+                                            + "<input type=\"text\" id=\"p_"+setBebidas.getString("ID_PRODUCTO")+"\" name=\"name\" value=\"1\">"
                                             + "<button class=\"minus-btn\" type=\"button\" name=\"button\">"
                                                 + "<img src=\"img/minus.svg\" alt=\"\" />"
                                             + "</button>"
                                         + "</div>"
-                                        + "<div class=\"total-price\">$"+setBebidas.getString("PRECIO")+"</div>"
+                                        + "<div class=\"total-price\">$"+setBebidas.getString("PRECIO")+""
+                                            + "<a class=\"waves-effect waves-teal btn-flat\" onclick=\"agregarCarrito('"+setBebidas.getString("ID_PRODUCTO")+"')\"><i class=\"material-icons\">add_shopping_cart</i></a>"
+                                        + "</div>"
                                        + "</div>");
                         }
                     %>
@@ -182,12 +184,14 @@
                                             + "<button class=\"plus-btn\" type=\"button\" name=\"button\">"
                                                 + "<img src=\"img/plus.svg\" alt=\"\" />"
                                             + "</button>"
-                                            + "<input type=\"text\" name=\"name\" value=\"1\">"
+                                            + "<input type=\"text\" id=\"p_"+setDulces.getString("ID_PRODUCTO")+"\" name=\"name\" value=\"1\">"
                                             + "<button class=\"minus-btn\" type=\"button\" name=\"button\">"
                                                 + "<img src=\"img/minus.svg\" alt=\"\" />"
                                             + "</button>"
                                         + "</div>"
-                                        + "<div class=\"total-price\">$"+setDulces.getString("PRECIO")+"</div>"
+                                        + "<div class=\"total-price\">$"+setDulces.getString("PRECIO")+""
+                                            + "<a class=\"waves-effect waves-teal btn-flat\" onclick=\"agregarCarrito('"+setDulces.getString("ID_PRODUCTO")+"')\"><i class=\"material-icons\">add_shopping_cart</i></a>"
+                                        + "</div>"
                                        + "</div>");
                         }
                     %>
@@ -212,12 +216,14 @@
                                             + "<button class=\"plus-btn\" type=\"button\" name=\"button\">"
                                                 + "<img src=\"img/plus.svg\" alt=\"\" />"
                                             + "</button>"
-                                            + "<input type=\"text\" name=\"name\" value=\"1\">"
+                                            + "<input type=\"text\" id=\"p_"+setFritura.getString("ID_PRODUCTO")+"\" name=\"name\" value=\"1\">"
                                             + "<button class=\"minus-btn\" type=\"button\" name=\"button\">"
                                                 + "<img src=\"img/minus.svg\" alt=\"\" />"
                                             + "</button>"
                                         + "</div>"
-                                        + "<div class=\"total-price\">$"+setFritura.getString("PRECIO")+"</div>"
+                                        + "<div class=\"total-price\">$"+setFritura.getString("PRECIO")+""
+                                            + "<a class=\"waves-effect waves-teal btn-flat\" onclick=\"agregarCarrito('"+setFritura.getString("ID_PRODUCTO")+"')\"><i class=\"material-icons\">add_shopping_cart</i></a>"
+                                        + "</div>"
                                        + "</div>");
                         }
                     %>
@@ -242,12 +248,14 @@
                                             + "<button class=\"plus-btn\" type=\"button\" name=\"button\">"
                                                 + "<img src=\"img/plus.svg\" alt=\"\" />"
                                             + "</button>"
-                                            + "<input type=\"text\" name=\"name\" value=\"1\">"
+                                            + "<input type=\"text\" id=\"p_"+setGalletas.getString("ID_PRODUCTO")+"\" name=\"name\" value=\"1\">"
                                             + "<button class=\"minus-btn\" type=\"button\" name=\"button\">"
                                                 + "<img src=\"img/minus.svg\" alt=\"\" />"
                                             + "</button>"
                                         + "</div>"
-                                        + "<div class=\"total-price\">$"+setGalletas.getString("PRECIO")+"</div>"
+                                        + "<div class=\"total-price\">$"+setGalletas.getString("PRECIO")+""
+                                            + "<a class=\"waves-effect waves-teal btn-flat\" onclick=\"agregarCarrito('"+setGalletas.getString("ID_PRODUCTO")+"')\"><i class=\"material-icons\">add_shopping_cart</i></a>"
+                                        + "</div>"
                                        + "</div>");
                         }
                     %>
