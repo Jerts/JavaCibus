@@ -106,7 +106,15 @@ function editHTMLJson(objJson){
 function agregarCarrito(id_elemento){
     var id = "p_"+id_elemento;
     var cantidad = document.getElementById(id).value;
-    var textToast ="<span>Producto agregado al carrito</span>"
+    var textToast ="<span>Producto agregado al carrito</span>";
+    var auxContador = document.getElementById("contadorCarrito").innerHTML;
+    var contadorCarrito;
+    if(auxContador===""){
+        contadorCarrito = 0;
+    }else{
+        contadorCarrito = parseInt(auxContador);
+    }
+    
     $.ajax({
         // En data puedes utilizar un objeto JSON, un array o un query string
         data: {"elemento" : id_elemento,"cantidad":cantidad},
@@ -123,6 +131,9 @@ function agregarCarrito(id_elemento){
             M.toast({html: textToast,displayLength : 1000,inDuration: 1000,outDuration:2000, classes: 'orange darken-2' });
             var obj = JSON.parse(data);
             console.log(obj.addSucces);
+            document.getElementById("contadorCarrito").innerHTML = "";
+            contadorCarrito = contadorCarrito + parseInt(cantidad);
+            document.getElementById("contadorCarrito").innerHTML = contadorCarrito;
          }
      })
      .fail(function( jqXHR, textStatus, errorThrown ) {

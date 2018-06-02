@@ -64,23 +64,35 @@
 
         <nav class="orange darken-2">
             <div class="row">
-                <div class="col s1 m1 l1">
+                <div class="col s2 m2 l2">
                     <div class="">
 
                          <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 
                     </div>
                 </div>
-                <div class="col s10 m10 l10">
-                    <div class="nav-wrapper left-align">
+                <div class="col s7 m7 l7">
+                    <div class="">
 
                         <a href="index.html" class="brand-logo center">Cibus</a>
 
                     </div>
                 </div>
+                <div class="col s2 m2 l2">
+                    <div class="">
+                         <a href="#" ><i class="material-icons">shopping_cart</i></a>
+
+                    </div>
+                </div>
+                <div class="col s1 m1 l1">
+                    <div class="">
+                         <span id="contadorCarrito" class="badge orange"></span>
+                    </div>
+                </div>
+                
             </div>
-            
         </nav>
+        
         <ul id="slide-out" class="sidenav">
             <li>
                 <div class="user-view">
