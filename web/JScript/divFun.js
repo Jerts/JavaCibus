@@ -4,8 +4,33 @@
  * and open the template in the editor.
  */
 function camCant(id){
-    var newCant = document.getElementById("Cant"+id).value;
-    console.log(newCant);
+    var id2 = "p_"+id;
+    var target = "cant"+id;
+    var newCant = document.getElementById(id2).value;
+    document.getElementById(target).innerHTML = newCant;
+    
+    $.ajax({
+        // En data puedes utilizar un objeto JSON, un array o un query string
+        data: {"elemento" : id,"cantidad":newCant},
+        //Cambiar a type: POST si necesario
+        type: "GET",
+        // Formato de datos que se espera en la respuesta
+        dataType: "text",
+        // URL a la que se enviará la solicitud Ajax
+        url: "Carrito"
+    })
+     .done(function( data, textStatus, jqXHR ) {
+         if ( console && console.log ) {
+            console.log( "La solicitud se ha completado correctamente." );
+            var obj = JSON.parse(data);
+            console.log(obj.addSucces);
+         }
+     })
+     .fail(function( jqXHR, textStatus, errorThrown ) {
+         if ( console && console.log ) {
+             console.log( "La solicitud a fallado: " +  textStatus);
+         }
+    });
 }
 function checkRegistro(){
     var galletaReg = document.cookie;

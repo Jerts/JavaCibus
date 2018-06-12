@@ -28,6 +28,10 @@
         <servlet-name>Carrito</servlet-name>
         <servlet-class>Servlets.Carrito</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PonerOrden</servlet-name>
+        <servlet-class>Servlets.PonerOrden</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Registro</servlet-name>
         <url-pattern>/Registro</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>Carrito</servlet-name>
         <url-pattern>/Carrito</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PonerOrden</servlet-name>
+        <url-pattern>/PonerOrden</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

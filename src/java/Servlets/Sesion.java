@@ -53,7 +53,8 @@ public class Sesion implements Filter {
             
         HttpServletRequest req = (HttpServletRequest) request;
         HttpSession s1 = req.getSession();
-        if(!PeticionValida(req) && s1.getAttribute("usuario")!=null ){
+        System.out.println("Filter: "+s1.getAttribute("usuario"));
+        if(s1.getAttribute("usuario")!=null ){
             chain.doFilter(request, response);
         }else {
             //el usuario no ha iniciado sesión

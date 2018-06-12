@@ -14,17 +14,7 @@
     String usuario = (String) s1.getAttribute("usuario");
     String email = (String) s1.getAttribute("email");
     String img = (String) s1.getAttribute("img");
-    HashMap carrito = (HashMap)s1.getAttribute("carritoMapa");
-    Map<String,Integer> map = (Map)carrito;
-    
-    
-    Conect c1 = new Conect("cibusv2","root","");
-    Connection con = c1.getConneccion();
-    Statement stat = con.createStatement();
-    
-    String queryProductos = "";
-    ResultSet res;
-    String nombre;
+    s1.setAttribute("carritoMapa", null);
     
 %>
 <html>
@@ -97,51 +87,25 @@
             <li><div class="divider"></div></li>
             <li><a class="waves-effect" href="Out"><i class="material-icons">highlight_off</i>Cerrar sesión</a></li>
             <li><a class="waves-effect" href="#!"><i class="material-icons">live_help</i>Ayuda</a></li>
-        </ul>
-        
-        <ul class="collection">
-                    <li class="collection-item"><h4>Revisa tu orden</h4></li>
-                    <!-- Product #1 -->
+            </ul>
+                    
+            <div class="row">
+                <div class="col s12">
+                    <h4>Gracias por tu compra </h4><i class="material-icons">check_circle</i>
+                    <br>Usa este código para recoger tu pedido<br><br>
+                </div>
+                <div class="col s12 center-align">
                     <% 
-                        if(carrito!=null){
-                          for(Map.Entry<String,Integer> prod : map.entrySet()){
-                            //Cosas por imprimir
-                            queryProductos = "SELECT * FROM `producto` WHERE `ID_PRODUCTO`=\""+prod.getKey()+"\"";
-                            res = stat.executeQuery(queryProductos);
-                            //System.out.println(res.getString("NOMBRE"));
-                            res.next();
-                            System.out.println(queryProductos);
-                            System.out.println(res.getString("NOMBRE"));
-                            out.println( "<li class=\"collection-item avatar\">"
-                                +"<img src=\""+res.getString("RUTA_IMG")+"\" alt=\"\" class=\"circle\">"
-                                +"<h5>"+res.getString("NOMBRE")+"</h5>"
-                                +"<div class=\"row\">"
-                                    +"<div class=\"col s2 left-align\"><i class=\"material-icons\">insert_chart</i></div>"
-                                    +"<div class=\"col s10\" id=\"cant"+res.getString("ID_PRODUCTO")+"\">"+prod.getValue()+"</div>"
-                                +"</div>"
-                                +"<p class=\"range-field\">"
-                                    +"Modificar :"
-                                    +"<input  onchange=\"camCant('"+res.getString("ID_PRODUCTO")+"')\" type=\"range\" id=\"p_"+res.getString("ID_PRODUCTO")+"\" min=\"0\" max=\"10\" value=\""+prod.getValue()+"\"/>" 
-                                +"</p>" 
-                                +"</li>");
-                            }  
-                          out.println("<div class=\"row\">"
-                                        +"<div class=\"col s12 center-align\">"
-                                            +"<a class=\"waves-effect waves-light btn-large orange darken-2\" href=\"PonerOrden\">Comprar <i class=\"fa fa-cutlery\"></i></a>"
-                                        +"</div>"
-                                    +"</div>");
-                        }else{
-                            out.println("Whoops, aun no agregas nada al carrito"
-                                    +"<div class=\"row\">"
-                                        +"<div class=\"col s12 center-align\">"
-                                            +"<a class=\"waves-effect waves-light btn-large orange darken-2\" href=\"mainMenu.jsp\">Regresar <i class=\"fa fa-cutlery\"></i></a>"
-                                        +"</div>"
-                                    +"</div>");
-                        }
-                        
-                    %>           
-        </ul>
-        
+                        out.println("<img class=\"responsive-img\" src=\"http://api.qrserver.com/v1/create-qr-code/?data="+s1.getAttribute("id_compra")+"!&size=100x100\">");
+                    %> 
+                    <br><br>
+                </div>
+                <div class="col s12 center-align">
+                    <a class="waves-effect waves-light btn-large orange darken-2" href="mainMenu.jsp">Continuar comprando :)</a>
+                </div>
+            </div>
+                    
+                    
         <!--  Scripts (Siempre primero Jquery)-->
         <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script src="materialize/js/materialize.js"></script>
