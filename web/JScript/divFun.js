@@ -3,6 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+function camCant(id){
+    var newCant = document.getElementById("Cant"+id).value;
+    console.log(newCant);
+}
 function checkRegistro(){
     var galletaReg = document.cookie;
     var textToast1 = "<span>Registrado con éxito</span>";
@@ -14,6 +18,7 @@ function checkRegistro(){
          M.toast({html: textToast2,displayLength : 8000,inDuration: 4000,outDuration:3000, classes: 'orange darken-2' });
     }
 }
+
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);

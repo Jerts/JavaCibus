@@ -80,7 +80,7 @@
                 </div>
                 <div class="col s2 m2 l2">
                     <div class="">
-                         <a href="#" ><i class="material-icons">shopping_cart</i></a>
+                         <a href="carritoComp.jsp" ><i class="material-icons">shopping_cart</i></a>
 
                     </div>
                 </div>
