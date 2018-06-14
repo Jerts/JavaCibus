@@ -59,17 +59,26 @@ public class PonerOrden extends HttpServlet {
             
             String queryProductos = "";
             String nombre;
+            String queryUpdate = "";
+            String queryUpdateCliente = "";
             //Inserts
             for(Map.Entry<String,Integer> prod : map.entrySet()){
                 //Query
                 queryProductos = "SELECT * FROM `producto` WHERE `ID_PRODUCTO`=\""+prod.getKey()+"\"";
                 String query = "INSERT INTO `compra` (ID_COMPRA,ID_PRODUCTO,ID_CLIENTE,CANTIDAD,HORA,FECHA) "
                                +"VALUES('"+id_compra+"','"+prod.getKey()+"','"+id_cliente+"','"+prod.getValue()+"','"+hora+"','"+fecha+"')";
+                queryUpdate = "UPDATE `producto` SET `CANTIDAD`=`CANTIDAD`-"+prod.getValue()+" WHERE `ID_PRODUCTO`=\""+prod.getKey()+"\"";
+                queryUpdateCliente = "UPDATE `cliente` SET `CREDITOS`=`CREDITOS`-"+(Float)s1.getAttribute("totalCompra")+" WHERE `ID_CLIENTE`=\""+s1.getAttribute("usuario")+"\"";
                 System.out.println(query);
-                stat.executeUpdate(query);
+                System.out.println(queryUpdate);
+                System.out.println(queryUpdateCliente);
                 
+                stat.executeUpdate(query);
+                stat.executeUpdate(queryUpdate);
+                stat.executeUpdate(queryUpdateCliente);
             }
             s1.setAttribute("id_compra", id_compra);
+            s1.setAttribute("totalCompra", 0    );
             request.getRequestDispatcher("CodigoOrden.jsp").forward(request, response);
             
         } catch (SQLException ex) {

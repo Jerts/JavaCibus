@@ -14,6 +14,7 @@
     String usuario = (String) s1.getAttribute("usuario");
     String email = (String) s1.getAttribute("email");
     String img = (String) s1.getAttribute("img");
+    String creditos = (String) s1.getAttribute("creditos");
     HashMap carrito = (HashMap)s1.getAttribute("carritoMapa");
     Map<String,Integer> map = (Map)carrito;
     
@@ -93,6 +94,7 @@
                 </div>
             </li>
             <li><a class="subheader">Cuenta</a></li>
+            <li><a class="subheader">Créditos : $<%=creditos%></a></li>
             <li><a href="#!">Configuración</a></li>
             <li><div class="divider"></div></li>
             <li><a class="waves-effect" href="Out"><i class="material-icons">highlight_off</i>Cerrar sesión</a></li>
@@ -103,7 +105,9 @@
                     <li class="collection-item"><h4>Revisa tu orden</h4></li>
                     <!-- Product #1 -->
                     <% 
+                        float total = 0;
                         if(carrito!=null){
+                            
                           for(Map.Entry<String,Integer> prod : map.entrySet()){
                             //Cosas por imprimir
                             queryProductos = "SELECT * FROM `producto` WHERE `ID_PRODUCTO`=\""+prod.getKey()+"\"";
@@ -112,6 +116,7 @@
                             res.next();
                             System.out.println(queryProductos);
                             System.out.println(res.getString("NOMBRE"));
+                            //Imprimir los diferentes items en el carrito
                             out.println( "<li class=\"collection-item avatar\">"
                                 +"<img src=\""+res.getString("RUTA_IMG")+"\" alt=\"\" class=\"circle\">"
                                 +"<h5>"+res.getString("NOMBRE")+"</h5>"
@@ -119,18 +124,37 @@
                                     +"<div class=\"col s2 left-align\"><i class=\"material-icons\">insert_chart</i></div>"
                                     +"<div class=\"col s10\" id=\"cant"+res.getString("ID_PRODUCTO")+"\">"+prod.getValue()+"</div>"
                                 +"</div>"
+                                +"<div class=\"row\">"
+                                    +"<div class=\"col s2 left-align\"><i class=\"material-icons\">attach_money</i></div>"
+                                    +"<div class=\"col s10\" >"+res.getString("PRECIO")+"</div>"
+                                +"</div>"
                                 +"<p class=\"range-field\">"
                                     +"Modificar :"
                                     +"<input  onchange=\"camCant('"+res.getString("ID_PRODUCTO")+"')\" type=\"range\" id=\"p_"+res.getString("ID_PRODUCTO")+"\" min=\"0\" max=\"10\" value=\""+prod.getValue()+"\"/>" 
                                 +"</p>" 
                                 +"</li>");
+                            total = total + Float.parseFloat(res.getString("PRECIO"));
                             }  
+                          //Imprimir el precio total
+                          out.println( "<li class=\"collection-item avatar\">"
+                                
+                                +"<h5>Total:</h5>"
+                                +"<div class=\"row\">"
+                                    +"<div class=\"col s2 left-align\"><i class=\"material-icons\">attach_money</i></div>"
+                                    +"<div class=\"col s10\" >"+total+"</div>"
+                                +"</div>"
+                                +"</li>");
+                          //Atibuto para el total de la compra
+                          s1.setAttribute("totalCompra", total);
+                          //Boton de compra
                           out.println("<div class=\"row\">"
                                         +"<div class=\"col s12 center-align\">"
                                             +"<a class=\"waves-effect waves-light btn-large orange darken-2\" href=\"PonerOrden\">Comprar <i class=\"fa fa-cutlery\"></i></a>"
                                         +"</div>"
                                     +"</div>");
+                          
                         }else{
+                            //Regresar en caso de carrito vacío
                             out.println("Whoops, aun no agregas nada al carrito"
                                     +"<div class=\"row\">"
                                         +"<div class=\"col s12 center-align\">"

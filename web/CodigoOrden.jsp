@@ -14,6 +14,7 @@
     String usuario = (String) s1.getAttribute("usuario");
     String email = (String) s1.getAttribute("email");
     String img = (String) s1.getAttribute("img");
+    String creditos = (String) s1.getAttribute("creditos");
     s1.setAttribute("carritoMapa", null);
     
 %>
@@ -83,6 +84,7 @@
                 </div>
             </li>
             <li><a class="subheader">Cuenta</a></li>
+            <li><a class="subheader">Créditos : $<%=creditos%></a></li>
             <li><a href="#!">Configuración</a></li>
             <li><div class="divider"></div></li>
             <li><a class="waves-effect" href="Out"><i class="material-icons">highlight_off</i>Cerrar sesión</a></li>

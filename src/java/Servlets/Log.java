@@ -63,6 +63,7 @@ public class Log extends HttpServlet {
                     s1.setAttribute("usuario", res.getString("ID_CLIENTE"));
                     s1.setAttribute("email", res.getString("EMAIL"));
                     s1.setAttribute("img", res.getString("RUTA_IMG"));
+                    s1.setAttribute("creditos", res.getString("CREDITOS"));
                     //Redirigir al menu principal
                     request.getRequestDispatcher("mainMenu.jsp").forward(request, response);
 

@@ -5,7 +5,9 @@
  */
 
 package visualdb;
+import Servlets.PonerOrden;
 import coneccion.Conect;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,7 +29,7 @@ public class Consulta {
     private ResultSet Compras;
     private ResultSet Proveedores;
     //Constructor
-    Consulta(){
+    public Consulta(){
         con = new Conect("cibusv2","root","");
     }
     //Métodos: Regresan objetos resultSet
@@ -64,9 +66,9 @@ public class Consulta {
         }
         return Productos;
     }
-    public ResultSet getProductos(String producto) {
+    public ResultSet getProductos(String tipoProducto) {
         try {
-            String queryProductos ="SELECT * FROM `producto` WHERE `ID_CLIENTE` = \""+producto+"\" ";
+            String queryProductos ="SELECT * FROM `producto` WHERE `ID_TIPO` = \""+tipoProducto+"\" ";
             Statement stm = con.getConneccion().createStatement();
             Productos = stm.executeQuery(queryProductos);
         } catch (SQLException ex) {
@@ -106,6 +108,43 @@ public class Consulta {
             Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
         }
         return Proveedores;
+    }
+    public void setProducto(String tipo, String nombre, String presentacion, float precio,int cantidad){
+        try {
+            Statement stm = con.getConneccion().createStatement();
+            String id_producto = genIdProducto(con.getConneccion(),stm);
+            String queryInsertProducto = "INSERT INTO `producto` (`ID_PRODUCTO`, `ID_TIPO`, `ID_PROVEEDOR`, `NOMBRE`,"
+                    + "`RUTA_IMG`, `PRESENTACION`, `PRECIO`, `CANTIDAD`)"
+                    + "VALUES (\""+id_producto+"\","
+                    + "\""+tipo+"\",\""+"0001"+"\",\""+nombre+"\",\"img/productos/"+id_producto+".jpg\",\""+presentacion+"\","
+                    + "\""+precio+"\",\""+cantidad+"\")";
+            System.out.println(queryInsertProducto);
+            stm.executeUpdate(queryInsertProducto);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private String genIdProducto(Connection con,Statement stat){
+        String producto="";
+        int numero;
+        try {
+            String queryProductoActual = "SELECT DISTINCT `ID_PRODUCTO` FROM `producto` ORDER BY `ID_PRODUCTO` DESC";
+            ResultSet set = stat.executeQuery(queryProductoActual);
+            set.next();
+            producto = set.getString("ID_PRODUCTO");
+            System.out.println(producto);
+            producto = producto.substring(0,4);
+            System.out.println(producto);
+            numero = Integer.parseInt(producto)+1;
+            System.out.println(numero);
+            producto = String.format("%04d", numero);
+            System.out.println(producto);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PonerOrden.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return producto;
     }
     
     /*public static void main (String args[]){
